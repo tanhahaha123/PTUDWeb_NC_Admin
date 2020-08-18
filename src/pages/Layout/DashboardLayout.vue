@@ -9,35 +9,11 @@
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/dashboard">
         <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
+        <p>Trang chủ</p>
       </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>
-        <p>User profile</p>
-      </sidebar-link>
-      <sidebar-link to="/accounts">
-        <md-icon>content_paste</md-icon>
-        <p>Accounts list</p>
-      </sidebar-link>
-      <sidebar-link to="/tranferList">
-        <md-icon>multiple_stop</md-icon>
-        <p>Tranfer List</p>
-      </sidebar-link>
-      <sidebar-link to="/moneyTranfer">
-        <md-icon>attach_money</md-icon>
-        <p>Money tranfer</p>
-      </sidebar-link>
-      <sidebar-link to="/debtReminder">
-        <md-icon>more_time</md-icon>
-        <p>Debt reminder</p>
-      </sidebar-link>
-      <sidebar-link to="/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-      </sidebar-link>
-      <sidebar-link to="/transactions">
-        <md-icon>receipt_long</md-icon>
-        <p>Transactions History</p>
+        <p>Nhân viên</p>
       </sidebar-link>
     </side-bar>
 

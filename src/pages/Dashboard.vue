@@ -2,83 +2,7 @@
   <div class="content">
     <div class="md-layout">
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="dailySalesChart.data"
-          :chart-options="dailySalesChart.options"
-          :chart-type="'Line'"
-          data-background-color="blue"
-        >
-          <template slot="content">
-            <h4 class="title">Daily Sales</h4>
-            <p class="category">
-              <span class="text-success"
-                ><i class="fas fa-long-arrow-alt-up"></i> 55%
-              </span>
-              increase in today sales.
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 4 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="emailsSubscriptionChart.data"
-          :chart-options="emailsSubscriptionChart.options"
-          :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
-          :chart-type="'Bar'"
-          data-background-color="red"
-        >
-          <template slot="content">
-            <h4 class="title">Email Subscription</h4>
-            <p class="category">
-              Last Campaign Performance
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 10 days ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-      >
-        <chart-card
-          :chart-data="dataCompletedTasksChart.data"
-          :chart-options="dataCompletedTasksChart.options"
-          :chart-type="'Line'"
-          data-background-color="green"
-        >
-          <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
-            <p class="category">
-              Last Campaign Performance
-            </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              campaign sent 26 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
       >
         <stats-card data-background-color="green">
           <template slot="header">
@@ -86,20 +10,20 @@
           </template>
 
           <template slot="content">
-            <p class="category">Revenue</p>
-            <h3 class="title">$34,245</h3>
+            <p class="category">Ngân hàng liên kết</p>
+            <h3 class="title">{{ transactionsByBankName.labels.length }}</h3>
           </template>
 
-          <template slot="footer">
+          <!-- <template slot="footer">
             <div class="stats">
               <md-icon>date_range</md-icon>
               Last 24 Hours
             </div>
-          </template>
+          </template> -->
         </stats-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
       >
         <stats-card data-background-color="orange">
           <template slot="header">
@@ -107,23 +31,27 @@
           </template>
 
           <template slot="content">
-            <p class="category">Used Space</p>
+            <p class="category">Tổng giao dịch</p>
             <h3 class="title">
-              49/50
-              <small>GB</small>
+              {{
+                transactionsByBankName.total.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND"
+                })
+              }}
             </h3>
           </template>
 
-          <template slot="footer">
+          <!-- <template slot="footer">
             <div class="stats">
               <md-icon class="text-danger">warning</md-icon>
               <a href="#pablo">Get More Space...</a>
             </div>
-          </template>
+          </template> -->
         </stats-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
       >
         <stats-card data-background-color="red">
           <template slot="header">
@@ -131,143 +59,191 @@
           </template>
 
           <template slot="content">
-            <p class="category">Fixed Issues</p>
+            <p class="category">Gì đó ở đây</p>
             <h3 class="title">75</h3>
           </template>
 
-          <template slot="footer">
+          <!-- <template slot="footer">
             <div class="stats">
               <md-icon>local_offer</md-icon>
               Tracked from Github
             </div>
-          </template>
+          </template> -->
         </stats-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
       >
-        <stats-card data-background-color="blue">
-          <template slot="header">
-            <i class="fab fa-twitter"></i>
-          </template>
-
+        <chart-card
+          v-if="isLoadingTransactionsByBankName"
+          :chart-data="transactionsByBankName"
+          :chart-options="dailySalesChart.options"
+          :chart-type="'Bar'"
+          data-background-color="blue"
+        >
           <template slot="content">
-            <p class="category">Folowers</p>
-            <h3 class="title">+245</h3>
+            <h4 class="title">Ngân hàng liên kết</h4>
+            <p class="category">
+              <span class="text-success"
+                ><i class="fas fa-long-arrow-alt-up"></i> 55%
+              </span>
+              Giao dịch với các ngân hàng liên kết.
+            </p>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>update</md-icon>
-              Just Updated
+              <md-icon>access_time</md-icon>
+              Xem chi tiết
             </div>
           </template>
-        </stats-card>
+        </chart-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
       >
-        <md-card>
-          <md-card-header data-background-color="orange">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
-          </md-card-header>
-          <md-card-content>
-            <ordered-table table-header-color="orange"></ordered-table>
-          </md-card-content>
-        </md-card>
+        <chart-card
+          v-if="isLoadingTransactionsByMonth"
+          :chart-data="transactionsByMonth"
+          :chart-options="emailsSubscriptionChart.options"
+          :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
+          :chart-type="'Bar'"
+          data-background-color="red"
+        >
+          <template slot="content">
+            <h4 class="title">Tháng trong năm 2020</h4>
+            <p class="category">
+              Giao dịch của các tháng trong năm 2020
+            </p>
+          </template>
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+              Xem chi tiết
+            </div>
+          </template>
+        </chart-card>
       </div>
+      <div
+        class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+      >
+        <chart-card
+          v-if="isLoadingTransactionsByYear"
+          :chart-data="transactionsByYear"
+          :chart-options="dataCompletedTasksChart.options"
+          :chart-type="'Line'"
+          data-background-color="green"
+        >
+          <template slot="content">
+            <h4 class="title">So sánh giữa các năm</h4>
+            <p class="category">
+              So sánh giao dịch của các năm
+            </p>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <md-icon>access_time</md-icon>
+              Xem chi tiết
+            </div>
+          </template>
+        </chart-card>
+      </div>
+
       <!-- <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50"></div> -->
     </div>
   </div>
 </template>
 
 <script>
-import {
-  StatsCard,
-  ChartCard,
-  NavTabsCard,
-  NavTabsTable,
-  OrderedTable
-} from "@/components";
+import { StatsCard, ChartCard, NavTabsCard, NavTabsTable } from "@/components";
 
+import { mapState } from "vuex";
 export default {
   components: {
     StatsCard,
-    ChartCard,
-    OrderedTable
+    ChartCard
   },
   data() {
     return {
       dailySalesChart: {
-        data: {
-          labels: ["M", "T", "W", "T", "F", "S", "S"],
-          series: [[12, 17, 7, 17, 23, 18, 38]]
-        },
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 0
-          }
+            left: 35
+          },
+          showGridBackground: false,
+          showArea: true,
+          axisX: {
+            showGrid: false
+          },
+          axisY: {},
+          plugins: [
+            Chartist.plugins.ctPointLabels({
+              textAnchor: "middle",
+              labelInterpolationFnc: function(value) {
+                console.log("i was called");
+                return "$" + value;
+              }
+            }),
+            Chartist.plugins.tooltip({
+              currency: "$",
+              class: "class1 class2",
+              appendToBody: true
+            })
+          ],
+          low: 0,
+          high: 40000000
         }
       },
       dataCompletedTasksChart: {
-        data: {
-          labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
-          series: [[230, 750, 450, 300, 280, 240, 200, 190]]
-        },
-
         options: {
           lineSmooth: this.$Chartist.Interpolation.cardinal({
             tension: 0
           }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
           chartPadding: {
             top: 0,
             right: 0,
             bottom: 0,
-            left: 0
-          }
+            left: 35
+          },
+          plugins: [
+            Chartist.plugins.tooltip({
+              appendToBody: true
+            })
+          ]
         }
       },
       emailsSubscriptionChart: {
-        data: {
-          labels: [
-            "Ja",
-            "Fe",
-            "Ma",
-            "Ap",
-            "Mai",
-            "Ju",
-            "Jul",
-            "Au",
-            "Se",
-            "Oc",
-            "No",
-            "De"
-          ],
-          series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
-        },
         options: {
           axisX: {
             showGrid: false
           },
-          low: 0,
-          high: 1000,
           chartPadding: {
             top: 0,
             right: 5,
             bottom: 0,
-            left: 0
-          }
+            left: 35
+          },
+          plugins: [
+            Chartist.plugins.ctPointLabels({
+              textAnchor: "middle",
+              labelInterpolationFnc: function(value) {
+                console.log("i was called");
+                return "$" + value;
+              }
+            }),
+            Chartist.plugins.tooltip({
+              currency: "$",
+              class: "class1 class2",
+              appendToBody: true
+            })
+          ]
         },
         responsiveOptions: [
           [
@@ -284,6 +260,43 @@ export default {
         ]
       }
     };
+  },
+  mounted() {
+    if (
+      !this.isLoadingTransactionsByBankName ||
+      !this.isLoadingTransactionsByMonth ||
+      !this.isLoadingTransactionsByYear
+    ) {
+      this.$store.dispatch("getTotalTransactionsByBankName");
+      this.$store.dispatch("getTotalTransactionsByMonth");
+      this.$store.dispatch("getTotalTransactionsByYear");
+    }
+  },
+  computed: {
+    ...mapState([
+      "transactionsByBankName",
+      "isLoadingTransactionsByBankName",
+      "transactionsByMonth",
+      "isLoadingTransactionsByMonth",
+      "transactionsByYear",
+      "isLoadingTransactionsByYear"
+    ])
   }
 };
 </script>
+
+<style scoped>
+.chartist-tooltip {
+  opacity: 0;
+  position: absolute;
+  margin: 20px 0 0 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.chartist-tooltip.tooltip-show {
+  opacity: 1;
+}
+</style>

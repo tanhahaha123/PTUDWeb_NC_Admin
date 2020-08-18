@@ -90,6 +90,9 @@ export default {
       this.$nextTick(() => {
         this.initChart(ChartistLib);
       });
+    //   ChartistLib.click(function (e) {
+    //     console.log(e);
+    // });
     });
   }
 };

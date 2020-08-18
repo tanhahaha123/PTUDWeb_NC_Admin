@@ -31,6 +31,8 @@ import MaterialDashboard from "./material-dashboard";
 
 import Chartist from "chartist";
 
+import store from './store';
+
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
@@ -48,6 +50,7 @@ Vue.use(Notifications);
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
+  store,
   render: h => h(App),
   router,
   data: {
