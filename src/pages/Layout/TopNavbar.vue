@@ -76,10 +76,37 @@
               </a>
             </li>
 
-            <md-list-item href="#/user">
-              <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
-            </md-list-item>
+              <!-- Hiển thị Icon đăng nhập ( đang đăng nhập hay chưa đăng nhập) -->
+            <li class="md-list-item" v-if="userInfo">
+              <a
+                
+                class="md-list-item-router md-list-item-container md-button-clean dropdown"
+              >
+                <div class="md-list-item-content">
+                  <drop-down>
+                    <md-button
+                      slot="title"
+                      class="md-button md-just-icon md-simple"
+                      data-toggle="dropdown"
+                    >
+                      <md-avatar class="md-avatar-icon md-small md-primary">{{
+                        userInfo.TenKhachHang.split(" ")
+                          [
+                            userInfo.TenKhachHang.split(" ").length - 1
+                          ].toString()
+                          .charAt(0)
+                      }}</md-avatar>
+                      <p class="hidden-lg hidden-md">Profile</p>
+                    </md-button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="#">Trang cá nhân</a></li>
+                      <li><a href="#">Cài đặt</a></li>
+                      <li><a href="#" @click="LogOut">Đăng xuất</a></li>
+                    </ul>
+                  </drop-down>
+                </div>
+              </a>
+            </li>
           </md-list>
         </div>
       </div>
@@ -88,6 +115,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -101,13 +129,27 @@ export default {
         "Kelly Kapoor",
         "Ryan Howard",
         "Kevin Malone"
-      ]
+      ],
+       userInfo: null,
     };
   },
   methods: {
+    ...mapActions("alert", ["clear"]),
+    ...mapActions("account", ["logout"]),
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-    }
+    },
+    LogOut() {
+      //console.log("logout");
+      this.logout();
+    },
+  },
+  computed: {
+    ...mapState(["status"])
+  },
+  created() {
+    this.userInfo = JSON.parse(localStorage.getItem("user"));
+    //console.log("Created");
   }
 };
 </script>

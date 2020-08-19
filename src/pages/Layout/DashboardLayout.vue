@@ -11,6 +11,10 @@
         <md-icon>dashboard</md-icon>
         <p>Trang chủ</p>
       </sidebar-link>
+      <sidebar-link to="/history-transactions">
+        <md-icon>history</md-icon>
+        <p>Lịch sử giao dịch</p>
+      </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>
         <p>Nhân viên</p>

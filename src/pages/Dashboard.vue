@@ -32,7 +32,7 @@
 
           <template slot="content">
             <p class="category">Tổng giao dịch</p>
-            <h3 class="title">
+            <h3 class="title" v-show="transactionsByBankName">
               {{
                 transactionsByBankName.total.toLocaleString("it-IT", {
                   style: "currency",
