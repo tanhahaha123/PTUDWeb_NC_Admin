@@ -144,24 +144,24 @@
                   <fieldset class="md-layout-item md-small-size-100 md-size-100" style="border: 2px solid #007bff!important;padding: .5rem!important">
                     <legend style="width: auto!important; color: #007bff!important">Thông tin tài khoản </legend>
                     <div class="md-layout">
-                      <div class="md-layout-item md-small-size-100 md-size-50">
+                      <div class="md-layout-item md-small-size-100 md-size-60">
                         <md-field :class="getValidationClass('TenDangNhap')">
                           <label>Tên tài khoản</label>
                           <md-input type="text" v-model="input.TenDangNhap"></md-input>
                           <span class="md-error" v-if="!$v.input.TenDangNhap.required">Tên tài khoản không thể bỏ trống</span>
                         </md-field>
                       </div>
-                      <div class="md-layout-item md-small-size-100 md-size-50">
+                      <div class="md-layout-item md-small-size-100 md-size-60">
                         <md-field :class="getValidationClass('MatKhau')">
                           <label>Mật khẩu</label>
-                          <md-input type="text" v-model="input.MatKhau"></md-input>
+                          <md-input type="password" v-model="input.MatKhau" ></md-input>
                           <span class="md-error" v-if="!$v.input.MatKhau.required">Mật khẩu không thể bỏ trống</span>
                         </md-field>
                       </div>
-                      <div class="md-layout-item md-small-size-100 md-size-50">
+                      <div class="md-layout-item md-small-size-100 md-size-60">
                         <md-field :class="getValidationClass('XacNhanMatKhau')">
                           <label>Nhập lại mật khẩu</label>
-                          <md-input type="text" v-model="input.XacNhanMatKhau"></md-input>
+                          <md-input type="password" v-model="input.XacNhanMatKhau"></md-input>
                           <span class="md-error" v-if="!$v.input.XacNhanMatKhau.required">Nhập lại mật khẩu</span>
                           <span class="md-error" v-else-if="!$v.input.XacNhanMatKhau.sameAsPassword">Mật khẩu không giống</span>
                         </md-field>

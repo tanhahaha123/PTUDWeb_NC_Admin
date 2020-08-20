@@ -42,7 +42,7 @@ axiosApiInstance.interceptors.response.use((response) => {
     }
     let response;
     try {
-      response = await axios.post('http://bank25.herokuapp.com/api/auth/refresh-token',payload);
+      response = await axios.post('https://bank25.herokuapp.com/api/auth/refresh-token',payload);
     }
     catch(e){
       localStorage.removeItem("user");
@@ -256,7 +256,7 @@ export default new Vuex.Store({
   actions: {
 
     async getEmployeesFromDB({commit}){
-          const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/employees');
+          const respone=await axiosApiInstance.get('https://bank25.herokuapp.com/api/admin/employees');
           if(respone.data.err){
             commit('GET_EMPLOYEE_FAILED',respone.data);
           }else{
@@ -266,7 +266,7 @@ export default new Vuex.Store({
     },
     async getTotalTransactionsByBankName({commit}){
       commit("GET_TOTAL_TRANSACTIONS_BY_BANK_NAME");
-      const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/transactions/bank-name');
+      const respone=await axiosApiInstance.get('https://bank25.herokuapp.com/api/admin/transactions/bank-name');
       if(respone.data.err){
         commit('GET_TOTAL_TRANSACTIONS_BY_BANK_NAME_FAILED',respone.data);
       }else{
@@ -276,7 +276,7 @@ export default new Vuex.Store({
     },
     async getTotalTransactionsByMonth({commit}){
       commit("GET_TOTAL_TRANSACTIONS_BY_MONTH");
-      const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/transactions/month');
+      const respone=await axiosApiInstance.get('https://bank25.herokuapp.com/api/admin/transactions/month');
       if(respone.data.err){
         commit('GET_TOTAL_TRANSACTIONS_BY_MONTH_FAILED',respone.data);
       }else{
@@ -286,7 +286,7 @@ export default new Vuex.Store({
     },
     async getTotalTransactionsByYear({commit}){
       commit("GET_TOTAL_TRANSACTIONS_BY_YEAR");
-      const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/transactions/year');
+      const respone=await axiosApiInstance.get('https://bank25.herokuapp.com/api/admin/transactions/year');
       if(respone.data.err){
         commit('GET_TOTAL_TRANSACTIONS_BY_YEAR_FAILED',respone.data);
       }else{
@@ -326,7 +326,7 @@ export default new Vuex.Store({
       // });
       let res2 = await MyAxios({
         method: 'delete',
-        url: 'http://bank25.herokuapp.com/api/admin/employees',
+        url: 'https://bank25.herokuapp.com/api/admin/employees',
         // headers: {}, 
         data: {
           "TenDangNhap": TenDangNhap
@@ -350,7 +350,7 @@ export default new Vuex.Store({
       }
       let res2 = await MyAxios({
         method: 'post',
-        url: 'http://bank25.herokuapp.com/api/admin/employees',
+        url: 'https://bank25.herokuapp.com/api/admin/employees',
         // headers: {}, 
         data: rowTaiKhoanNhanVien
       }).then(response => {
@@ -370,7 +370,7 @@ export default new Vuex.Store({
     },
     async getLichSuGiaoDich(ctx) {
       const respone = await axiosApiInstance.get(
-        "http://bank25.herokuapp.com/api/admin/transactions/all"
+        "https://bank25.herokuapp.com/api/admin/transactions/all"
       );
       ctx.commit("GET_TRANFER_HISTORY", Object.values(respone.data));
     },

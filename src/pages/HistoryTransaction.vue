@@ -6,7 +6,7 @@
       >
         <stats-card data-background-color="green">
           <template slot="header">
-            <md-icon>store</md-icon>
+            <md-icon>account_balance</md-icon>
           </template>
 
           <template slot="content">
@@ -24,7 +24,7 @@
       >
         <stats-card data-background-color="orange">
           <template slot="header">
-            <md-icon>content_copy</md-icon>
+            <md-icon>assignment</md-icon>
           </template>
 
           <template slot="content">
@@ -62,33 +62,41 @@
           </template> -->
         </stats-card>
       </div>
-      <div class="md-layout-item md-small-size-100 md-size-20">
-        <md-field class="md-layout-item md-small-size-100 md-size-100">
-          <md-select v-model="BankQuery" placeholder= "Tất cả">
-              <md-option value="AGRIBANK">AGRIBANK</md-option>
-              <md-option value="GO">GO</md-option>
-              <md-option value="37Bank">37BANK</md-option>
-              <md-option value="30Bank">30BANK</md-option>
-              <md-option value="25Bank">25BANK</md-option>
-              <md-option value="ALL">Tất cả</md-option>
-          </md-select>
-          <!-- <md-input type="text" placeholder="Nhập thông tin người cần tìm" v-model="BankQuery" @input="tranferTableSearch"></md-input> -->
-        </md-field>
-      </div>
-      <div class="md-layout-item md-small-size-100 md-size-40" >
-          <md-datepicker v-model="NgayBatDau">
-            <label>Ngày bắt đầu</label>
-            <!-- <span class="md-error" v-if="!$v.input.NgaySinh.required">Ngày sinh không thể bỏ trống</span>
-            <span class="md-error" v-else-if="!$v.input.NgaySinh.day">Ngày sinh không hợp lệ</span> -->
-          </md-datepicker>
-      </div>
-      <div class="md-layout-item md-small-size-100 md-size-40" >
-          <md-datepicker v-model="NgayKetThuc">
-            <label>Ngày kết thúc</label>
-            <!-- <span class="md-error" v-if="!$v.input.NgaySinh.required">Ngày sinh không thể bỏ trống</span>
-            <span class="md-error" v-else-if="!$v.input.NgaySinh.day">Ngày sinh không hợp lệ</span> -->
-          </md-datepicker>
-      </div>
+
+      <fieldset class="md-layout-item md-small-size-100 md-size-100" style="border: 2px solid #007bff!important;padding: .5rem!important">
+        <legend style="width: auto!important; color: #007bff!important"> Thông tin truy vấn </legend>
+        <div class="md-layout">
+          <div class="md-layout-item md-small-size-100 md-size-20">
+            <md-field class="md-layout-item md-small-size-100 md-size-100">
+              <md-select v-model="BankQuery" placeholder= "Tất cả">
+                  <md-option value="AGRIBANK">AGRIBANK</md-option>
+                  <md-option value="GO">GO</md-option>
+                  <md-option value="37Bank">37BANK</md-option>
+                  <md-option value="30Bank">30BANK</md-option>
+                  <md-option value="25Bank">25BANK</md-option>
+                  <md-option value="ALL">Tất cả</md-option>
+              </md-select>
+              <!-- <md-input type="text" placeholder="Nhập thông tin người cần tìm" v-model="BankQuery" @input="tranferTableSearch"></md-input> -->
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-40" >
+              <md-datepicker v-model="NgayBatDau">
+                <label>Ngày bắt đầu</label>
+                <!-- <span class="md-error" v-if="!$v.input.NgaySinh.required">Ngày sinh không thể bỏ trống</span>
+                <span class="md-error" v-else-if="!$v.input.NgaySinh.day">Ngày sinh không hợp lệ</span> -->
+              </md-datepicker>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-40" >
+              <md-datepicker v-model="NgayKetThuc">
+                <label>Ngày kết thúc</label>
+                <!-- <span class="md-error" v-if="!$v.input.NgaySinh.required">Ngày sinh không thể bỏ trống</span>
+                <span class="md-error" v-else-if="!$v.input.NgaySinh.day">Ngày sinh không hợp lệ</span> -->
+              </md-datepicker>
+          </div>
+        </div>
+        </fieldset>
+
+      
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="blue">
