@@ -2,7 +2,7 @@
   <div class="content">
     <div class="md-layout">
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-50"
       >
         <stats-card data-background-color="green">
           <template slot="header">
@@ -10,20 +10,17 @@
           </template>
 
           <template slot="content">
-            <p class="category">Ngân hàng liên kết</p>
-            <h3 class="title">{{ transactionsByBankName.labels.length }}</h3>
+            <p class="category">Tổng số giao dịch</p>
+            <h5 class="title">{{ tranferFilter.length }}</h5>
+            <p class="category">Tổng số giao dịch nộp tiền</p>
+            <h5 class="title">{{ tranferFilter.filter(x => x.LoaiGiaoDich=== "nhận tiền").length }}</h5>
+            <p class="category">Tổng số giao dịch chuyển khoản</p>
+            <h5 class="title">{{ tranferFilter.filter(x => x.LoaiGiaoDich=== "chuyển khoản").length }}</h5>
           </template>
-
-          <!-- <template slot="footer">
-            <div class="stats">
-              <md-icon>date_range</md-icon>
-              Last 24 Hours
-            </div>
-          </template> -->
         </stats-card>
       </div>
       <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-50"
       >
         <stats-card data-background-color="orange">
           <template slot="header">
@@ -31,15 +28,30 @@
           </template>
 
           <template slot="content">
-            <p class="category">Tổng giao dịch</p>
-            <h3 class="title" v-show="transactionsByBankName">
-              {{
-                transactionsByBankName.total.toLocaleString("it-IT", {
+            <p class="category">Tổng số tiền giao dịch</p>
+            <h5 class="title">{{
+                totalSoTienGiaoDich.toLocaleString("it-IT", {
                   style: "currency",
                   currency: "VND"
                 })
               }}
-            </h3>
+            </h5>
+            <p class="category">Tổng số tiền đã nạp</p>
+            <h5 class="title">{{
+                totalSoTienDaNap.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND"
+                })
+              }}
+            </h5>
+            <p class="category">Tổng số tiền đã chuyển khoản</p>
+            <h5 class="title">{{
+                totalSoTienChuyenKhoan.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND"
+                })
+              }}
+            </h5>
           </template>
 
           <!-- <template slot="footer">
@@ -48,20 +60,6 @@
               <a href="#pablo">Get More Space...</a>
             </div>
           </template> -->
-        </stats-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
-      >
-        <stats-card data-background-color="red">
-          <template slot="header">
-            <md-icon>info_outline</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Gì đó ở đây</p>
-            <h3 class="title">75</h3>
-          </template>
         </stats-card>
       </div>
       <div class="md-layout-item md-small-size-100 md-size-20">
@@ -141,9 +139,12 @@ export default {
       "isLoadingTransactionsByMonth",
       "transactionsByYear",
       "isLoadingTransactionsByYear",
-      "tranferHisTable"
+      "tranferHisTable",
+      "totalSoTienGiaoDich",
+      "totalSoTienDaNap",
+      "totalSoTienChuyenKhoan"
     ]),
-    ...mapGetters(["tranferFilter"])
+    ...mapGetters(["tranferFilter", "totalFilter"])
   },
   methods:{
     tranferTableSearch () {

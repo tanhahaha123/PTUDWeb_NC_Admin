@@ -224,6 +224,12 @@
         @include shadow-big-color($brand-info);
     }
 
+    [data-background-color="sky-blue"],
+    .md-tabs.md-info .md-tabs-navigation{
+        background: linear-gradient(60deg, $cyan-400, $cyan-600);
+        @include shadow-big-color($brand-info);
+    }
+
     [data-background-color="green"],
     .md-tabs.md-success .md-tabs-navigation{
         background: linear-gradient(60deg, $green-400, $green-600);

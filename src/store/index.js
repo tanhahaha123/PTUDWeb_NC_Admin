@@ -42,7 +42,7 @@ axiosApiInstance.interceptors.response.use((response) => {
     }
     let response;
     try {
-      response = await axios.post('http://localhost:3000/api/auth/refresh-token',payload);
+      response = await axios.post('http://bank25.herokuapp.com/api/auth/refresh-token',payload);
     }
     catch(e){
       localStorage.removeItem("user");
@@ -107,7 +107,11 @@ export default new Vuex.Store({
     //search query
     tranferQuery:'ALL',
     NgayBatDau:  315594000000,
-    NgayKetThuc: 1609347600000
+    NgayKetThuc: 1609347600000,
+
+    totalSoTienGiaoDich: 0,
+    totalSoTienDaNap: 0,
+    totalSoTienChuyenKhoan: 0,
   },
   getters: {
     themsttDanhSachNhanVien(state){
@@ -117,21 +121,42 @@ export default new Vuex.Store({
       });
       return ds;
     },
+    // totalFilter(state){
+    //   return tranferFilter(state).length
+    // },
     tranferFilter(state) {
+      state.totalSoTienGiaoDich = 0;
+      state.totalSoTienDaNap = 0;
+      state.totalSoTienChuyenKhoan = 0;
       // console.log("-------------------------");
       // console.log(state.tranferQuery);
       // console.log(state.NgayBatDau);
       // console.log(state.NgayKetThuc);
       if (state.tranferQuery === "ALL") {
+        for (const i in state.tranferHisTable) {
+          state.totalSoTienGiaoDich += state.tranferHisTable[i].SoTien;
+          state.tranferHisTable[i].LoaiGiaoDich == "nhận tiền" 
+          ? state.totalSoTienDaNap += state.tranferHisTable[i].SoTien 
+          : state.totalSoTienDaNap += 0;
+        }
+        state.totalSoTienChuyenKhoan = state.totalSoTienGiaoDich - state.totalSoTienDaNap;
         return state.tranferHisTable;
       }
+      
       const BankName = state.tranferQuery;
       const NgayBatDau = state.NgayBatDau;
       const NgayKetThuc = state.NgayKetThuc;
-      return state.tranferHisTable
-      .filter(t =>
+      const result = state.tranferHisTable.filter(t =>
         t.TenNganHang === BankName && Date.parse(t.NgayGiaoDich) >= NgayBatDau && Date.parse(t.NgayGiaoDich) <= NgayKetThuc
-      )
+      );
+      result.forEach((res,idx) => {
+        state.totalSoTienGiaoDich += res.SoTien;
+        res.LoaiGiaoDich == "nhận tiền" 
+        ? state.totalSoTienDaNap += res.SoTien 
+        : state.totalSoTienDaNap += 0;
+      });
+      state.totalSoTienChuyenKhoan = state.totalSoTienGiaoDich - state.totalSoTienDaNap;
+      return result;
     },
   },
   mutations: {
@@ -211,7 +236,7 @@ export default new Vuex.Store({
         payload[i].NgayGiaoDich = moment(
           payload[i].NgayGiaoDich,
           "YYYY-MM-DD"
-        ).format("DD-MM-YYYY");
+        ).format("DD MMM YYYY")
       }
       state.tranferHisTable = payload;
       // state.tranferHisTable=payload.map(t=>{
@@ -231,7 +256,7 @@ export default new Vuex.Store({
   actions: {
 
     async getEmployeesFromDB({commit}){
-          const respone=await axiosApiInstance.get('http://localhost:3000/api/admin/employees');
+          const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/employees');
           if(respone.data.err){
             commit('GET_EMPLOYEE_FAILED',respone.data);
           }else{
@@ -241,7 +266,7 @@ export default new Vuex.Store({
     },
     async getTotalTransactionsByBankName({commit}){
       commit("GET_TOTAL_TRANSACTIONS_BY_BANK_NAME");
-      const respone=await axiosApiInstance.get('http://localhost:3000/api/admin/transactions/bank-name');
+      const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/transactions/bank-name');
       if(respone.data.err){
         commit('GET_TOTAL_TRANSACTIONS_BY_BANK_NAME_FAILED',respone.data);
       }else{
@@ -251,7 +276,7 @@ export default new Vuex.Store({
     },
     async getTotalTransactionsByMonth({commit}){
       commit("GET_TOTAL_TRANSACTIONS_BY_MONTH");
-      const respone=await axiosApiInstance.get('http://localhost:3000/api/admin/transactions/month');
+      const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/transactions/month');
       if(respone.data.err){
         commit('GET_TOTAL_TRANSACTIONS_BY_MONTH_FAILED',respone.data);
       }else{
@@ -261,7 +286,7 @@ export default new Vuex.Store({
     },
     async getTotalTransactionsByYear({commit}){
       commit("GET_TOTAL_TRANSACTIONS_BY_YEAR");
-      const respone=await axiosApiInstance.get('http://localhost:3000/api/admin/transactions/year');
+      const respone=await axiosApiInstance.get('http://bank25.herokuapp.com/api/admin/transactions/year');
       if(respone.data.err){
         commit('GET_TOTAL_TRANSACTIONS_BY_YEAR_FAILED',respone.data);
       }else{
@@ -301,7 +326,7 @@ export default new Vuex.Store({
       // });
       let res2 = await MyAxios({
         method: 'delete',
-        url: 'http://localhost:3000/api/admin/employees',
+        url: 'http://bank25.herokuapp.com/api/admin/employees',
         // headers: {}, 
         data: {
           "TenDangNhap": TenDangNhap
@@ -325,7 +350,7 @@ export default new Vuex.Store({
       }
       let res2 = await MyAxios({
         method: 'post',
-        url: 'http://localhost:3000/api/admin/employees',
+        url: 'http://bank25.herokuapp.com/api/admin/employees',
         // headers: {}, 
         data: rowTaiKhoanNhanVien
       }).then(response => {
@@ -345,7 +370,7 @@ export default new Vuex.Store({
     },
     async getLichSuGiaoDich(ctx) {
       const respone = await axiosApiInstance.get(
-        "http://localhost:3000/api/admin/transactions/all"
+        "http://bank25.herokuapp.com/api/admin/transactions/all"
       );
       ctx.commit("GET_TRANFER_HISTORY", Object.values(respone.data));
     },
